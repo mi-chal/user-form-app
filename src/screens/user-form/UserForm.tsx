@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import {Alert, StyleSheet, View} from 'react-native';
 import {TouchableRipple, Button, Modal, Portal, Text} from 'react-native-paper';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-controller';
+
 import {zodResolver} from '@hookform/resolvers/zod';
 import {useForm, useWatch} from 'react-hook-form';
 import {InputForm} from '../../components/input-form';
@@ -50,66 +52,93 @@ export const UserForm = () => {
 
   return (
     <>
-      <View style={styles.container}>
-        <InputForm
-          control={control}
-          name="accountType"
-          label="Account Type"
-          editable={false}
-          onPressIn={onAccountTypePress}
-        />
-        <InputForm
-          control={control}
-          name="userName"
-          label="User Name"
-          placeholder="name@example.com"
-        />
-        <InputForm
-          control={control}
-          name="password"
-          label="Password"
-          secureTextEntry
-        />
-        <InputForm
-          control={control}
-          name="serverAddress"
-          label="Server Address"
-        />
-        {accountType === 'Advanced' && (
-          <View style={styles.advancedAccountTypeFields}>
-            <InputForm
-              control={control}
-              name="serverPath"
-              label="Server Path"
-            />
-            <View style={styles.row}>
+      <KeyboardAwareScrollView
+        showsVerticalScrollIndicator={false}
+        bottomOffset={80}
+        style={{marginBottom: 40}}
+        contentContainerStyle={{paddingTop: 50}}>
+        <View style={styles.container}>
+          <InputForm
+            control={control}
+            name="accountType"
+            label="Account Type"
+            editable={false}
+            onPressIn={onAccountTypePress}
+          />
+          <InputForm
+            control={control}
+            name="userName"
+            label="User Name"
+            placeholder="name@example.com"
+          />
+          <InputForm
+            control={control}
+            name="password"
+            label="Password"
+            secureTextEntry
+          />
+          <InputForm
+            control={control}
+            name="serverAddress"
+            label="Server Address"
+          />
+          {/* <InputForm
+            control={control}
+            name="userName1"
+            label="User Name"
+            placeholder="name@example.com"
+          />
+          <InputForm
+            control={control}
+            name="password1"
+            label="Password"
+            secureTextEntry
+          />
+          <InputForm
+            control={control}
+            name="serverAddress1"
+            label="Server Address"
+          /> */}
+          {accountType === 'Advanced' && (
+            <View style={styles.advancedAccountTypeFields}>
               <InputForm
                 control={control}
-                name="port"
-                label="Port"
-                keyboardType="numeric"
-                style={styles.portField}
+                name="serverPath"
+                label="Server Path"
               />
-              <TouchableRipple onPress={toggleUseSSL}>
-                <View style={styles.row}>
-                  <View
-                    style={[
-                      styles.checkbox,
-                      // eslint-disable-next-line react-native/no-inline-styles
-                      {backgroundColor: isSSLChecked ? '#6750A4' : 'white'},
-                    ]}
-                  />
-                  <Text>Use SSL</Text>
-                </View>
-              </TouchableRipple>
+              <View style={styles.row}>
+                <InputForm
+                  control={control}
+                  name="port"
+                  label="Port"
+                  keyboardType="numeric"
+                  style={styles.portField}
+                />
+                <TouchableRipple onPress={toggleUseSSL}>
+                  <View style={styles.row}>
+                    <View
+                      style={[
+                        styles.checkbox,
+                        // eslint-disable-next-line react-native/no-inline-styles
+                        {backgroundColor: isSSLChecked ? '#6750A4' : 'white'},
+                      ]}
+                    />
+                    <Text>Use SSL</Text>
+                  </View>
+                </TouchableRipple>
+              </View>
+              {/* <InputForm
+                control={control}
+                name="serverPath1"
+                label="Server Path"
+              /> */}
             </View>
-          </View>
-        )}
-
-        <Button mode="contained" onPress={onSubmitForm}>
-          Submit
-        </Button>
-      </View>
+          )}
+          <Button mode="contained" onPress={onSubmitForm}>
+            Submit
+          </Button>
+        </View>
+      </KeyboardAwareScrollView>
       <Portal>
         <Modal
           visible={isAccountTypeModalVisible}

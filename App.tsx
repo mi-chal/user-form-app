@@ -1,26 +1,20 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet} from 'react-native';
-import {PaperProvider} from 'react-native-paper';
+import {KeyboardProvider} from 'react-native-keyboard-controller';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {UserForm} from './src/screens/user-form/UserForm';
+
+import {ThemeProvider} from './src/theme/ThemeProvider';
+import {AppContent} from './src/containers/app-content/AppContent';
 
 function App() {
   return (
     <SafeAreaProvider>
-      <PaperProvider>
-        <SafeAreaView style={styles.container}>
-          <UserForm />
-        </SafeAreaView>
-      </PaperProvider>
+      <ThemeProvider>
+        <KeyboardProvider>
+          <AppContent />
+        </KeyboardProvider>
+      </ThemeProvider>
     </SafeAreaProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    margin: 16,
-  },
-});
 
 export default App;
